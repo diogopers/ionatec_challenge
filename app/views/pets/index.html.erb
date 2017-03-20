@@ -1,0 +1,32 @@
+<div class="container">
+  <%#= will_paginate @posts, class: "flickr_pagination padded" %>
+  <table class="table">
+    <thead>
+      <tr>
+        <!-- <th>#</th> -->
+        <th><h3>Nome</h3></th>
+        <th>Raça</th>
+        <th>Gênero</th>
+        <th>Idade</th>
+        <th>Castrado</th>
+        <th>Dono</th>
+        <th>Última Visita</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <% @pets.each do |pet| %>
+        <tr>
+          <th scope="row"><%= pet.fullname%></th>
+          <td><%= pet.breed%></td>
+          <td><%= display_gender(pet)%></td>
+          <td><%= display_age(pet)%></td>
+          <td><%= display_castrated(pet)%></td>
+          <td><%= pet.user.fullname%></td>
+          <td><%= pet.last_visit.strftime("%d.%m.%Y")%></td>
+          </tr>
+        <% end %>
+
+    </tbody>
+  </table>
+
