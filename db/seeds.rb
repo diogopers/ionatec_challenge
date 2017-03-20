@@ -1,7 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'yaml'
+
+User.destroy_all
+
+genders = %w(macho fêmea)
+castrated = [true, false]
+breeds = YAML.load_file('config/breeds.yml')
+
+80.times {
+  User.create(fullname: Faker::Name.name, phone: Faker::PhoneNumber.cell_phone)
+}
+
+100.times {
+  Pet.create( fullname: Faker::Pokemon.name, breed: breeds.sample,
+              gender: genders.sample, castrated: castrated.sample,
+              birth_date: Faker::Date.birthday(0, 25),
+              last_visit: Faker::Date.backward(730), user: User.all.sample
+            )
+          }
