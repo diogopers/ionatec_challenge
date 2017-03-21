@@ -1,6 +1,9 @@
 class Pet < ApplicationRecord
   validates_presence_of :fullname, :gender, :breed
 
+  alias_attribute :nome_do_pet, :fullname
+  alias_attribute :última_visita, :fullname
+
 
 
   filterrific(
@@ -8,6 +11,7 @@ class Pet < ApplicationRecord
     available_filters: [
       :sorted_by,
       :search_query,
+      :with_castrated_only,
       :with_gender
     ]
   )
@@ -42,6 +46,13 @@ class Pet < ApplicationRecord
     )
   }
 
+  # Check if castrated
+  scope :with_castrated_only, lambda { |flag|
+      if 1 == flag
+        where(castrated: true)
+      end
+  }
+
   scope :with_user_id, lambda { |user_ids|
     where(user_id: [*user_ids])
   }
@@ -60,26 +71,39 @@ class Pet < ApplicationRecord
       # Joining on other tables is quite common in Filterrific, and almost
       # every ActiveRecord table has a 'created_at' column.
       order("pets.last_visit #{ direction }")
-    when /^name_/
-      # Simple sort on the name colums
+    when /^fullname/
       order("LOWER(pets.fullname) #{ direction }")
     # when /^country_name_/
     #   # This sorts by a student's country name, so we need to include
     #   # the country. We can't use JOIN since not all students might have
     #   # a country.
     #   order("LOWER(users.name) #{ direction }").includes(:user)
-    # else
+    else
       raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
     end
   }
 
   def self.options_for_sorted_by
-      [
-        ['Nome do Pet (a-z)', 'name_asc'],
-        ['Última Visita (mais recente)', 'last_visit_desc'],
-        ['Data de Nascimento (mais recente)', 'birth_date_desc'],
-        ['Data de cadastro (mais recente)', 'created_at_asc'],
-        ['Nome do dono (a-z)', 'user_name_asc']
-      ]
-    end
+    [
+      ['Nome do Pet (a-z)', 'name_asc'],
+      ['Última Visita (mais recente)', 'last_visit_desc'],
+      ['Data de Nascimento (mais recente)', 'birth_date_desc'],
+      ['Data de cadastro (mais recente)', 'created_at_asc'],
+      ['Nome do dono (a-z)', 'user_name_asc']
+    ]
+  end
+
+  def self.options_for_select
+    [
+      ['macho'],
+      ['fêmea']
+    ]
+  end
+
+  private
+
+  def pet_params
+   params.require(:pet).permit( :breed, :fullname, :castrated,
+                                :last_visit, :genre)
+  end
 end

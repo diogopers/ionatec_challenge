@@ -6,16 +6,22 @@
 
   <table class="table">
     <tr>
-      <th>Nome</th>
+      <th><%= filterrific_sorting_link(@filterrific, :fullname) %></th>
+      <th>Sexo</th>
       <th>Raça</th>
       <th>Dono</th>
-      <th>Última Visita</th>
+      <th>Idade</th>
+      <th>Castrado</th>
+      <th><%= filterrific_sorting_link(@filterrific, :last_visit) %></th>
     </tr>
     <% pets.each do |pet| %>
       <tr>
         <td><%= pet.fullname%></td>
+        <td><%= display_gender(pet) %></td>
         <td><%= pet.breed %></td>
         <td><%= pet.user.fullname %></td>
+        <td><%= display_age(pet) %></td>
+        <td><%= display_castrated(pet) %></td>
         <td><%= pet.last_visit %></td>
       </tr>
     <% end %>

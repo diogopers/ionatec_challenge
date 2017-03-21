@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Pets</h1>
+  <h1><%= link_to "Pets", pets_path %></h1>
 
   <%#
     Filterrific adds the `form_for_filterrific` view helper:
@@ -9,7 +9,7 @@
         * AJAX spinner while AJAX request is being processed
     * sets form_for options like :url, :method and input name prefix
   %>
-  <%= form_for_filterrific @filterrific do |f| %>
+  <%= form_for_filterrific @filterrific, html: { class: 'form-inline', remote: true } do |f| %>
     <div>
       Search
       <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
@@ -19,16 +19,21 @@
       ) %>
     </div>
 
-
-
     <div>
-      <%= link_to(
-        'Reset filters',
-        reset_filterrific_url,
+      Sexo
+      <%= f.select(
+        :with_gender,
+        @filterrific.select_options[:with_gender],
+        { include_blank: '- Ambos -' }
       ) %>
     </div>
+
+    <%= f.check_box :with_castrated_only %> Castrados
+
     <%# add an automated spinner to your form when the list is refreshed %>
-    <%= render_filterrific_spinner %>
+    <%= f.submit "Filtrar resultados", class: "btn btn-primary" %>
+    <%= link_to( 'Reset filters', reset_filterrific_url ) %>
+    <%#= render_filterrific_spinner %>
   <% end %>
 
   <%= render(
