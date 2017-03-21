@@ -1,0 +1,25 @@
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info pets %>
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>Raça</th>
+      <th>Dono</th>
+      <th>Última Visita</th>
+    </tr>
+    <% pets.each do |pet| %>
+      <tr>
+        <td><%= pet.fullname%></td>
+        <td><%= pet.breed %></td>
+        <td><%= pet.user.fullname %></td>
+        <td><%= pet.last_visit %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= will_paginate pets, class: "flickr_pagination" %>

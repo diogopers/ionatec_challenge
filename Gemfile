@@ -7,6 +7,7 @@ gem 'puma', '~> 3.0'
 
 gem 'faker'
 gem 'will_paginate', '~> 3.1.1'
+gem 'filterrific'
 
 gem 'jquery-rails'
 gem 'bootstrap-sass'
