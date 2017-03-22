@@ -1,0 +1,26 @@
+.banner {
+  height: 20vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), image-url("banner.jpg");
+  background-size: cover;
+  background-position: center;
+  h1 {
+    color: white;
+    font-size: 45px;
+  }
+  p {
+    color: white;
+    opacity: 0.8;
+    font-size: 20px;
+    font-weight: lighter;
+    margin-bottom: 30px;
+  }
+}
+
+.logo-banner {
+  width: 40%;
+  height: 40%;
+
+}
