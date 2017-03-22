@@ -1,9 +1,9 @@
 module PetsHelper
   def display_gender(pet)
     if pet.gender == "macho"
-      raw("<i class='fa fa-mars' aria-hidden='true'></i>")
+      raw("<i class='fa fa-mars male' aria-hidden='true'></i>")
     else
-      raw("<i class='fa fa-venus' aria-hidden='true'></i>")
+      raw("<i class='fa fa-venus female' aria-hidden='true'></i>")
     end
   end
 
