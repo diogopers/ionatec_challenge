@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><%= link_to "Pets", pets_path %></h1>
+  <h1><%= link_to "Pets", reset_filterrific_url %></h1>
 
   <%#
     Filterrific adds the `form_for_filterrific` view helper:
@@ -9,30 +9,36 @@
         * AJAX spinner while AJAX request is being processed
     * sets form_for options like :url, :method and input name prefix
   %>
-  <%= form_for_filterrific @filterrific, html: { class: 'form-inline', remote: true } do |f| %>
-    <div>
-      Search
+  <%= form_for_filterrific @filterrific, html: { class: 'search', remote: true } do |f| %>
+    <div class="form-group">
+      <%= f.label :search_query, "Buscar por nome ou raça do Pet".html_safe %>
       <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
       <%= f.text_field(
         :search_query,
-        class: 'filterrific-periodically-observed'
+        class: 'filterrific-periodically-observed form-control'
       ) %>
     </div>
 
-    <div>
-      Sexo
+    <div class="form-group form-inline">
+      <%= f.label :with_gender, "Sexo".html_safe %>
       <%= f.select(
         :with_gender,
         @filterrific.select_options[:with_gender],
         { include_blank: '- Ambos -' }
+        # class: 'form-control'
       ) %>
+
+
+      <div class="form-group">
+        <%= f.label :with_castrated_only, "Castrados".html_safe %>
+        <%= f.check_box :with_castrated_only, class: "checkbox disabled" %>
+      </div>
     </div>
 
-    <%= f.check_box :with_castrated_only %> Castrados
-
-    <%# add an automated spinner to your form when the list is refreshed %>
-    <%= f.submit "Filtrar resultados", class: "btn btn-primary" %>
+    <div class="form-group">
+    <%= f.submit "Filtrar resultados", class: "btn btn-primary btn-lg" %>
     <%= link_to( 'Reset filters', reset_filterrific_url ) %>
+    </div>
     <%#= render_filterrific_spinner %>
   <% end %>
 

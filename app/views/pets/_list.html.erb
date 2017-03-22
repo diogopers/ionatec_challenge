@@ -1,10 +1,6 @@
 <div id="filterrific_results">
 
-  <div>
-    <%= page_entries_info pets %>
-  </div>
-
-  <table class="table">
+  <table class="table centered">
     <tr>
       <th><%= filterrific_sorting_link(@filterrific, :fullname) %></th>
       <th>Sexo</th>
@@ -16,11 +12,11 @@
     </tr>
     <% pets.each do |pet| %>
       <tr>
-        <td><%= pet.fullname%></td>
+        <td class="fullname"><%= pet.fullname%></td>
         <td><%= display_gender(pet) %></td>
         <td><%= pet.breed %></td>
         <td><%= pet.user.fullname %></td>
-        <td><%= display_age(pet) %></td>
+        <td class="age"><%= display_age(pet) %></td>
         <td><%= display_castrated(pet) %></td>
         <td><%= pet.last_visit %></td>
       </tr>
