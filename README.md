@@ -1,24 +1,47 @@
-# README
+# Petland dog list 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project display a list of dogs registered in a fictional Pet Shop with filters and ordering options.
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+To access this project you'll need the following
+```
+Ruby 2.4.0p0
+Rails 5.0.2
+```
 
-* System dependencies
+### Installing
+1. Download or clone the repository
+```
+git clone https://github.com/diogopers/ionatec_challenge
+```
 
-* Configuration
+2. Change the directory
+```
+cd ionatec_challenge
+```
 
-* Database creation
+3. Install and configure gems 
+```
+bundle install
+```
 
-* Database initialization
+4. Setup database and populate data
+```
+rake db:setup
+```
 
-* How to run the test suite
+5. Run the local rails server with the command
+```
+rails s
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+6. Access the app at
+```
+http://localhost:3000
+```
 
-* Deployment instructions
-
-* ...
+You can run tests with the command
+```
+bundle exec rspec
+```
