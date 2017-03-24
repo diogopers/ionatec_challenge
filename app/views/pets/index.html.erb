@@ -5,15 +5,8 @@
 </div>
 
 <div class="container">
-  <%#
-    Filterrific adds the `form_for_filterrific` view helper:
-    * adds dom id 'filterrific_filter'
-    * applies javascript behaviors:
-        * AJAX form submission on change
-        * AJAX spinner while AJAX request is being processed
-    * sets form_for options like :url, :method and input name prefix
-  %>
-  <%= form_for_filterrific @filterrific, html: { class: 'search margin-top margin-bottom', remote: true } do |f| %>
+
+  <%= form_for_filterrific @filterrific, html: { class: 'search margin-top' } do |f| %>
     <div class="form-group">
       <%= f.label :search_query, "Buscar por nome ou raça do Pet".html_safe %>
       <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
@@ -23,27 +16,26 @@
       ) %>
     </div>
 
-    <div class="form-group form-inline">
-      <%= f.label :with_gender, "Sexo".html_safe %>
-      <%= f.select(
-        :with_gender,
-        @filterrific.select_options[:with_gender],
-        { include_blank: '- Ambos -' }
-        # class: 'form-control'
-      ) %>
+    <div class="form-inline margin-bottom">
+      <div class="form-group margin-right">
+        <%= f.label :with_gender, "Sexo".html_safe %>
+        <%= f.select( :with_gender, @filterrific.select_options[:with_gender],
+                      { include_blank: 'Ambos' },
+                      class: "btn btn-primary btn-lg dropdown-toggle",
+                    ) %>
+      </div>
 
-
-      <div class="form-group">
+      <div class="form-group margin-right">
         <%= f.label :with_castrated_only, "Castrados".html_safe %>
-        <%= f.check_box :with_castrated_only, class: "checkbox disabled" %>
+        <%= f.check_box :with_castrated_only %>
       </div>
     </div>
 
-    <div class="form-group">
-    <%= f.submit "Filtrar resultados", class: "btn btn-primary btn-lg" %>
-    <%= link_to( 'Limpar campos', reset_filterrific_url ) %>
+    <div class="form-group margin-right">
+      <%= f.submit "Filtrar resultados", class: "btn btn-primary btn-lg" %>
+      <%= link_to( 'Limpar campos', reset_filterrific_url ) %>
     </div>
-    <%#= render_filterrific_spinner %>
+
   <% end %>
 
   <%= render(

@@ -1,13 +1,13 @@
 class PetsController < ApplicationController
-
   def index
     @filterrific = initialize_filterrific(
       Pet,
       params[:filterrific],
       select_options: {
               sorted_by: Pet.options_for_sorted_by,
-              with_gender: Pet.options_for_select
-            }
+              with_gender: Pet.options_for_select,
+            },
+            persistence_id: 'shared_key'
     ) or return
     @pets = @filterrific.find.page(params[:page])
 
