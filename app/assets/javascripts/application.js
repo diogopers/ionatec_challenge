@@ -15,5 +15,4 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require turbolinks
-//= require filterrific/filterrific-jquery
 
